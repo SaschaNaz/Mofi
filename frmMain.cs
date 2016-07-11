@@ -20,8 +20,6 @@ namespace Mofi
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            Worker.Init();
-
             this.m_network = new Network();
 
             this.FindFFXIVProcess();
@@ -143,6 +141,12 @@ namespace Mofi
             {
                 Console.WriteLine("파이널판타지14 프로세스 설정에 실패했습니다");
             }
+        }
+
+        private void frmMain_Resize(object sender, EventArgs e)
+        {
+            Worker.notifyWindow.Left = this.Left;
+            Worker.notifyWindow.Top = this.Top;
         }
     }
 }

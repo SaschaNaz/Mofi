@@ -1,4 +1,6 @@
-﻿using System;
+﻿using System.Threading;
+using System;
+using System.Windows.Forms;
 
 namespace Mofi
 {
@@ -15,12 +17,6 @@ namespace Mofi
         {
             mainWindow = new frmMain();
             notifyWindow = new frmNotify();
-        }
-
-        public static void Init()
-        {
-            notifyWindow.Left = -100;
-            notifyWindow.Top = -100;
             notifyWindow.Show();
         }
 
@@ -30,27 +26,32 @@ namespace Mofi
 
             if (p == 0)
             {
-                notifyWindow.Invoke(new Action<string>(notifyWindow.SetText), null);
+                Worker.Invoke("");
                 return;
             }
 
             if (Worker.S && Data.S.ContainsKey(p))
             {
-                notifyWindow.Invoke(new Action<string>(notifyWindow.SetText), Data.S[p]);
+                Worker.Invoke(Data.S[p]);
                 return;
             }
 
             if (Worker.A && Data.A.ContainsKey(p))
             {
-                notifyWindow.Invoke(new Action<string>(notifyWindow.SetText), Data.A[p]);
+                Worker.Invoke(Data.A[p]);
                 return;
             }
 
             if (Worker.B && Data.B.ContainsKey(p))
             {
-                notifyWindow.Invoke(new Action<string>(notifyWindow.SetText), Data.B[p]);
+                Worker.Invoke(Data.B[p]);
                 return;
             }
+        }
+
+        internal static void Invoke(string name)
+        {
+            notifyWindow.Invoke(new Action<string>(notifyWindow.SetText), name);
         }
     }
 }

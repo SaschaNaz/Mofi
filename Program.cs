@@ -20,6 +20,10 @@ namespace Mofi
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(Worker.mainWindow);
+
+            writer.Flush();
+
+            writer.Close();
         }
     }
 }

@@ -26,49 +26,45 @@ namespace Mofi
 
         private void frmNotify_Load(object sender, EventArgs e)
         {
-            this.Hide();
-
             int initialStyle = NativeMethods.GetWindowLong(this.Handle, -20);
             NativeMethods.SetWindowLong(this.Handle, -20, initialStyle | 0x80000 | 0x20);
         }
 
         public void SetText(string text)
         {
-            if (text == null)
+            if (string.IsNullOrEmpty(text))
             {
-                this.Hide();
+                this.Opacity = 0;
                 this.timer1.Enabled = false;
+                return;
             }
             else if (this.m_tmr > 0)
             {
                 return;
             }
-
-            this.label1.Text = text;
-            this.timer1.Enabled = true;
-
-            this.m_tmr = 10;
-
-            this.Show();
-
-            this.WindowState = FormWindowState.Normal;
-
+            
             this.Left = Worker.mainWindow.Left;
             this.Top = Worker.mainWindow.Top;
+                        
+            this.label1.Text = text;
+            
+            this.Opacity = 0.5;
 
-            NativeMethods.SetWindowPos(this.Handle, new IntPtr(/*HWND_NOTOPMOST*/ -2), 0, 0, 0, 0, /*SWP_NOMOVE | SWP_NOSIZE*/ 3);
-            NativeMethods.SetWindowPos(this.Handle, new IntPtr(/*HWND_TOPMOST*/   -1), 0, 0, 0, 0, /*SWP_NOMOVE | SWP_NOSIZE*/ 3);
+            this.m_tmr = 20;
+            this.timer1.Enabled = true;
+
+            this.WindowState = FormWindowState.Normal;
         }
 
-        private bool m_tick = false;
         private int m_tmr = 0;
         private void timer1_Tick(object sender, EventArgs e)
         {
-            this.BackColor = (this.m_tick = !this.m_tick) ? Color.Black : Color.Red;
+            this.BackColor = (--this.m_tmr) % 2 == 0 ? Color.Black : Color.Red;
+            NativeMethods.SetWindowPos(this.Handle, new IntPtr(/*HWND_TOPMOST*/   -1), 0, 0, 0, 0, /*SWP_NOMOVE | SWP_NOSIZE*/ 3);
 
-            if (--m_tmr == 0)
+            if (this.m_tmr <= 0)
             {
-                this.Hide();
+                this.Opacity = 0;
                 this.timer1.Enabled = false;
             }
         }
