@@ -4,6 +4,8 @@
 
 - 개인용
 
+- 알티크 찾다가 빡쳐서 만들었어요
+
 # LICENSE
 
 - 네트워크 통신 관련 부분 : [devunt/DFAssist](https://github.com/devunt/DFAssist)
