@@ -62,12 +62,12 @@ namespace Mofi
 
         private void ctlA_CheckedChanged(object sender, EventArgs e)
         {
-            Worker.A = this.ctlS.Checked;
+            Worker.A = this.ctlA.Checked;
         }
 
         private void ctlB_CheckedChanged(object sender, EventArgs e)
         {
-            Worker.B = this.ctlS.Checked;
+            Worker.B = this.ctlB.Checked;
         }
 
         private void FindFFXIVProcess()
