@@ -28,6 +28,8 @@ namespace Mofi
             { 4375, "[S] 센무르" },
             { 4376, "[S] 창백의 기수" },
             { 4380, "[S] 레우크로타" },
+            { 4378, "[S] 극락조" },
+            { 4374, "[S] 카이저 베히모스" },
         };
 
         public static readonly IDictionary<ushort, string> A = new SortedDictionary<ushort, string>
